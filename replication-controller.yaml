@@ -1,0 +1,30 @@
+# processes that monitor Kubernetes objects and respond accordingly.
+apiVersion: v1
+kind: ReplicationController # multiple instances of a single pod in the kubernetes cluster, high availability 
+# single pod, can help by automatically bringing up a new pod when the existing one fails
+# ensures that the specified number of pods are running at all times
+
+metadata: # replicationcontroller
+  name: myapp-rc
+  labels:
+    app: myapp
+    type: frontend
+
+spec:
+  template:
+    metadata: # pod
+      labels:
+        app: myapp
+        type: frontend
+    spec: # pod
+      containers:
+        - name: myapp-container
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+  replicas: 3
+
+# kubectl create -f replication-controller.yaml
+# kubectl get rc 
+# kubectl get replicationcontroller
+

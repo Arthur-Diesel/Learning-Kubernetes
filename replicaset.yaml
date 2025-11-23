@@ -1,0 +1,32 @@
+# requires selector to identify what pods fall under it 
+# can also manage pods that were not created by it
+
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-rs
+  labels:
+    app: myapp
+    type: frontend
+
+spec:
+  template:
+    metadata:
+      labels:
+        app: myapp
+        type: frontend
+    spec:
+      containers:
+        - name: myapp-container
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+  replicas: 3
+  selector: # not required
+    matchLabels:
+      type: frontend
+
+# kubectl apply -f replicaset.yaml
+# kubectl scale --replicas=6 -f replicaset.yaml
+# kubectl scale --replicas=6 replicaset myapp-rs
+#                            type       name

@@ -1,0 +1,22 @@
+# Kubernetes definition file always contains: (Required fields)
+
+# Pod, Service: v1
+# ReplicaSet, Deployment: apps/v1
+
+apiVersion: v1 # Version of the Kubernetes API 
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels: # any key-value pairs
+    app: myapp
+
+spec: # different for different objects, dictionary
+  containers: # list, multiple containers can be defined
+    - name: myapp-container
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+
+# create pod command: kubectl apply -f default.yaml or .
+# delete pod command: kubectl delete -f default.yaml or .
+# delete with name: kubectl delete pod myapp-pod
