@@ -1,0 +1,25 @@
+# docker run -d --name=redis redis
+
+# docker run -d --name=db postgres:9.4
+
+# docker run -d --name=vote -p 5000:80 --link redis:redis voting-app
+# // creates an entry into the etc host file on the container, adding an entry w/ the hostname redis with the internal ip of the redis container
+
+# docker run -d --name=result -p 5001:80 --link db:db result-app
+
+# docker run -d --name=worker --link db:db --link redis:redis worker
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: vote
+  labels:
+    app: vote
+spec:
+  containers:
+    - name: vote
+      image: dockersamples/examplevotingapp_vote
+      ports:
+        - containerPort: 80
+          name: vote
+      
