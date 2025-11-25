@@ -1,0 +1,12 @@
+# enable communication between various components within and outside of the application
+# enable loose coupling between microservices in our application
+
+# object just like pods, replica sets, deployments
+# one of its use cases is to listen to a port on the node and forward requests on that port to a port on the pod running the application
+# nodeport service
+
+# cluseterip 
+# service creates a virtual ip inside the cluster to enable communication between different services
+
+# loadbalancer
+# provisions a load balancer for our application in supported cloud providers

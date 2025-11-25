@@ -1,0 +1,29 @@
+# port on the pod where the application is running (target)
+# service forwards the request to 
+
+# port on the service itself (port)
+# virtual server inside the node
+
+# port on the node (nodePort)
+# use to access the application from outside the cluster
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-nodeport-service
+spec:
+  type: NodePort
+  ports: # array, multiple ports can be defined
+    - port: 80
+      targetPort: 80
+      nodePort: 30007
+  selector: # to identify the pods that fall under this service
+    app: myapp
+    type: frontend
+  # acts as a built in load balancer to distribute traffic across multiple pod instances
+  # algorithm: random
+
+# when we create a service, kubernetes automatically creates a service that span across all nodes in the cluster and maps the target port to the same node port in the cluster
+# access application using any node's IP address and the nodePort
+
+# kubectl get svc

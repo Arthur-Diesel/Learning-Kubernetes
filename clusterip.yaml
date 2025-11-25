@@ -1,0 +1,15 @@
+# each service gets an ip and name assigned to it inside the cluster
+# and that is the name that should be use by other pods to access the service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  type: ClusterIP # default
+  ports:
+    - port: 80 # where the service is exposed
+      targetPort: 80 # where the backend is exposed
+  selector:
+    app: myapp
+    type: backend

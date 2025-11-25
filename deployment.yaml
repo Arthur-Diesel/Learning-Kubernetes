@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: frontend
+
+spec:
+  template:
+    metadata:
+      labels:
+        app: myapp
+        type: frontend
+    spec:
+      containers:
+        - name: myapp-container
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      type: frontend
+
+# deployment kubernetes object that comes higher in herarchy
+# provides capability to upgrade the underlying instances seamlessly using rolling updates
+# undo, pause and resume changes
+
+# kubectl get deployments
+# kubectl get replicaset
+# kubectl get pods
+# kubectl get all
+
+# create deployment, it triggers a rollout
+# rollout creates a new replica set, recorded as a new deployment revision
+
+# kubectl create -f deployment.yaml --record 
+
+# kubectl rollout status deployment myapp-deployment
+# kubectl rollout history deployment myapp-deployment
+
+# kubectl describe deployment myapp-deployment
+
+# kubectl rollout undo deployment myapp-deployment
+# rolled back to previous revision, create new revision
+
+# deployment strategy
+# destroy all and then create newer versions (w/ application down) - recreate
+# take down the older version and bring up a newer version, upgrade is seamless - rolling update (default)
+
+# kubectl apply -f deployment.yaml
+# new rollout triggered
+
+# kubectl set image deployment myapp-deployment myapp-container=nginx:1.19.1
+
+# kubectl rollout undo deployment myapp-deployment 
+
+# IP Address assigned to a pod
+# Each pod gets its own IP address
+# Pods can communicate with each other using these IP addresses
+
+# When a kubernetes cluster is setup, kubernetes does not automatically set up any kind of networking
+# All containers/Pods can communicate with each other without NAT
+# All nodes can communicate with all containers (and vice-versa) without NAT
+
+# Kubernetes expects us to set up a networking solution that satisfies the above requirements
+# Pre-built solutions available.
+# Cisco ACI networking, cilium, flannel, VMWare NSX-T, Calico...

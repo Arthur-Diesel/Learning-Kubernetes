@@ -22,7 +22,7 @@ spec:
           ports:
             - containerPort: 80
   replicas: 3
-  selector: # not required
+  selector:
     matchLabels:
       type: frontend
 
@@ -30,3 +30,7 @@ spec:
 # kubectl scale --replicas=6 -f replicaset.yaml
 # kubectl scale --replicas=6 replicaset myapp-rs
 #                            type       name
+
+# kubectl edit replicaset myapp
+# temporary file created by kubernetes to edit the configuration of an existing object
+# directly applied
